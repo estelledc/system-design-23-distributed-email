@@ -11,7 +11,35 @@
 | SMTP stage and disconnect behavior | real loopback TCP oracle | local pass: `250`, `451`, `550`, accepted-without-reply |
 | response-loss recovery | real API/worker `SIGKILL` processes plus database/oracle readback | local pass: four killed processes |
 | bounded performance observation | fixed fixture/runtime/service versions and raw JSON | local pass: Node 26.7.0 + PostgreSQL 17.11 |
-| reproducible remote default branch | public commit plus green Node 22/24/26 CI | pending publication |
+| reproducible remote default branch | public commit plus green Node 22/24/26 CI | implementation commit/run passed; receipt update pending its own run |
+
+## Public implementation receipt
+
+- Repository: <https://github.com/estelledc/system-design-23-distributed-email>
+- Implementation commit: `b367fbb72e77b8615fcc18d885d3faaf6c621621`
+- CI run: [32205914983](https://github.com/estelledc/system-design-23-distributed-email/actions/runs/32205914983)
+- Jobs: Node 22 `95929062259`, Node 24 `95929062353`, Node 26 `95929062236`; all completed successfully against the
+  PostgreSQL 17.11 image pinned by digest.
+- Each job ran 11 pure tests and 7 real PostgreSQL/TCP tests with `0` failed, skipped, or todo; repository policy/syntax/link scans,
+  locked install, and high-severity dependency audit also passed with zero reported vulnerabilities.
+- Each job reproduced four true-process kills: submission response loss, prepared-attempt crash before I/O, final-`250`/local-
+  commit loss, and transient-completion response loss. Each also rejected a stale assignment before TCP and ended with invariant
+  gap zero; mailbox, inbox, read, and external acceptance remained explicitly false.
+
+The fixed shared-runner benchmark observed the following ranges across the three concurrent jobs. These are raw observations, not
+runtime rankings or production estimates:
+
+| Observation | Public range |
+|---|---:|
+| submission throughput | 416.409–483.900 messages/s |
+| attempt-receipt throughput | 35.152–86.057 attempts/s |
+| submission p50 | 11.802–14.209 ms |
+| attempt p50 | 6.698–7.582 ms |
+| snapshot p50 | 1.863–2.087 ms |
+
+The exact fixture was 64 messages × 4 recipients, 256 completed synthetic attempt receipts, 4 buckets, and 32 immutable status
+snapshots. It excluded public SMTP, DNS/MX, TLS, MIME/attachments, mailbox/inbox/read, replication/failover, production contention,
+deliverability, SLA, and external acceptance.
 
 ## Pure-test matrix
 

@@ -12,8 +12,8 @@ frozen from the title alone before reading the fixed secondary chapter.
 
 The closed-book contract has been compared with the fixed secondary chapter and primary RFC/PostgreSQL documentation. The v0.1
 vertical slice is implemented and has passed its local pure, PostgreSQL, real loopback TCP, true-process crash, policy, audit, and
-fixed benchmark gates. A public remote and independent GitHub Actions receipt are still pending, so local success is not yet the
-release result.
+fixed benchmark gates. Implementation commit `b367fbb72e77b8615fcc18d885d3faaf6c621621` also passed the complete public
+[Node 22/24/26 CI run](https://github.com/estelledc/system-design-23-distributed-email/actions/runs/32205914983).
 
 The slice intentionally stops at outbound remote-MTA acceptance. It does not implement inbound mail, mailbox storage, folders,
 search, attachments, MIME interoperability, DNS/MX, TLS, authentication/signing, reputation, bounces, or Internet delivery.
@@ -69,6 +69,10 @@ Current local evidence proves exact submission replay, changed-intent conflict, 
 before I/O, finite retries, immutable status pages, numeric SMTP stage classification, four real `SIGKILL` recovery windows, and a
 bounded single-machine benchmark. It does not prove PostgreSQL failover, SMTP/MIME compatibility, Internet delivery, mailbox
 storage, inbox placement, read, reputation, production capacity, SLA, deployment, or external acceptance.
+
+The public run repeated 11 pure tests and 7 PostgreSQL/TCP tests with zero failed/skipped/todo on Node 22.23.2, 24.19.0, and 26.7.0;
+each runtime also reproduced the four crash windows, zero invariant gap, and high-severity dependency count zero. See the
+[verification ledger](docs/verification.md) for exact job and benchmark receipts.
 
 ## License
 
