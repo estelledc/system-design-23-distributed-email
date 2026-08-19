@@ -1,10 +1,23 @@
 # Verification ledger
 
+## Identity-safe history
+
+The identity-safe rewrite preserved every existing tree, message, and timestamp while mapping the four commits in order:
+
+- `9458ff9b08bea598fcc77d1390ddf9f1638b00e8` → `eefce545fc6e56617229b3145c0f04c7e9d0f13b`
+- `9ed778ba0aaa553a6072e2c9116e4094827548e0` → `8b93f87a4afeeea3ef0e9d6b3f2b9d49bff4a0e5`
+- `b367fbb72e77b8615fcc18d885d3faaf6c621621` → `de3769569224985eb306dfc030e8fb7a48b2dfa3`
+- `488a75890c538b2f81e9aa23b713dd94076a7705` → `e3be44b0c1551e182e5f0aac09c84c12a30fc1d6`
+
+Current reachable `main` uses the repository owner's GitHub noreply identity. Rewritten baseline
+`e3be44b0c1551e182e5f0aac09c84c12a30fc1d6` passed [CI run 32228609897](https://github.com/estelledc/system-design-23-distributed-email/actions/runs/32228609897)
+on Node 22/24/26 with PostgreSQL 17.11, the loopback SMTP oracle, and the complete gate.
+
 ## Evidence levels
 
 | Claim | Required evidence | Current state |
 |---|---|---|
-| closed-book invariants predate source reading | first Git commit | passed: `9458ff9b08bea598fcc77d1390ddf9f1638b00e8` |
+| closed-book invariants predate source reading | first Git commit | passed: `eefce545fc6e56617229b3145c0f04c7e9d0f13b` |
 | fixed chapter and primary pages were acquired completely | fixed identities, SHA-256, valid receipts | passed; see research log |
 | validation/digest/state-machine logic | deterministic unit/property tests | local pass: 11 tests, 0 skipped/failed/todo |
 | atomic fan-out, claim, retry, fencing, snapshots | real PostgreSQL 17 integration tests | local pass: 7 tests, 0 skipped/failed/todo |
@@ -13,11 +26,12 @@
 | bounded performance observation | fixed fixture/runtime/service versions and raw JSON | local pass: Node 26.7.0 + PostgreSQL 17.11 |
 | reproducible remote default branch | public commit plus green Node 22/24/26 CI | implementation commit/run passed; receipt update pending its own run |
 
-## Public implementation receipt
+## Historical public implementation receipt
 
 - Repository: <https://github.com/estelledc/system-design-23-distributed-email>
-- Implementation commit: `b367fbb72e77b8615fcc18d885d3faaf6c621621`
-- CI run: [32205914983](https://github.com/estelledc/system-design-23-distributed-email/actions/runs/32205914983)
+- Pre-rewrite implementation object: `b367fbb72e77b8615fcc18d885d3faaf6c621621`; current tree-equivalent commit:
+  `de3769569224985eb306dfc030e8fb7a48b2dfa3`
+- Historical CI run: [32205914983](https://github.com/estelledc/system-design-23-distributed-email/actions/runs/32205914983); it remains bound to the old object
 - Jobs: Node 22 `95929062259`, Node 24 `95929062353`, Node 26 `95929062236`; all completed successfully against the
   PostgreSQL 17.11 image pinned by digest.
 - Each job ran 11 pure tests and 7 real PostgreSQL/TCP tests with `0` failed, skipped, or todo; repository policy/syntax/link scans,
