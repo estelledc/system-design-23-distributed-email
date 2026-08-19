@@ -10,16 +10,24 @@ frozen from the title alone before reading the fixed secondary chapter.
 
 ## Current phase
 
-Closed-book contract only. Source comparison, standards review, storage/queue/SMTP choice, implementation, tests, benchmark,
-public remote, CI, deployment, deliverability, SLA, and external acceptance are pending.
+The closed-book contract has been compared with the fixed secondary chapter and primary RFC/PostgreSQL documentation. v0.1 now has
+an accepted design: one PostgreSQL authority, bounded per-recipient work, worker generations, attempt-before-I/O receipts, and a
+real loopback TCP SMTP subset oracle. Implementation, executable validation, benchmark, public remote, and CI are still pending.
 
-Candidate concerns include immutable message content, envelope/header separation, per-recipient fan-out, leases/fencing, retry and
-terminal status classes, response-loss ambiguity, suppression, bounded privacy logs, stable queries, and evidence separation. They
-remain hypotheses until source review and executable validation.
+The slice intentionally stops at outbound remote-MTA acceptance. It does not implement inbound mail, mailbox storage, folders,
+search, attachments, MIME interoperability, DNS/MX, TLS, authentication/signing, reputation, bounces, or Internet delivery.
 
 ## Read first
 
 - [Closed-book contract](docs/closed-book-contract.md)
+- [Requirements](docs/requirements.md)
+- [Architecture](docs/architecture.md)
+- [API contract](docs/api.md)
+- [Research log](docs/research-log.md)
+- [ADR 0001](docs/adr/0001-postgres-recipient-attempt-authority.md)
+- [Operations](docs/operations.md)
+- [Threat model](docs/threat-model.md)
+- [Verification ledger](docs/verification.md)
 - [Security policy](SECURITY.md)
 
 ## Evidence boundary
