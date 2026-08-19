@@ -29,7 +29,7 @@ uses `delivered`, `inbox`, `read`, or `human accepted` as a synonym for the stat
 - recipients: ordered list of 1–8; order is part of intent and assigns stable recipient ordinals.
 - subject: printable ASCII, 0–120 bytes, no CR/LF.
 - body: printable ASCII plus LF, normalized to CRLF, at most 4 KiB and 200 bytes per line.
-- generated message: bounded From, To, Subject, Message-ID, Date-like synthetic sequence header, blank line, and body; no caller-
+- generated message: bounded From, To, Subject, Message-ID, stable lab marker, blank line, and body; no caller-
   supplied arbitrary headers, Bcc, MIME, attachments, 8-bit transport, or dot-framing control.
 
 ## State and ownership rules

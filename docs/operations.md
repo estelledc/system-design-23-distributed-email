@@ -1,6 +1,6 @@
 # Operations guide
 
-## Planned local commands
+## Local commands
 
 ```bash
 npm ci --ignore-scripts
@@ -10,8 +10,9 @@ DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/distributed_email npm r
 DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/distributed_email npm run benchmark:infra
 ```
 
-These commands are design targets until the implementation commit exists. `compose.yaml` will pin the same PostgreSQL 17.11 image
-digest as public CI. All fixtures use `.invalid` addresses and loopback sockets; no command requires Internet SMTP or DNS.
+`compose.yaml` pins the same PostgreSQL 17.11 image digest as public CI. All fixtures use `.invalid` addresses and loopback sockets;
+no command requires Internet SMTP or DNS. `npm run check` is the pure local gate; infrastructure commands require the real database
+and fail rather than skip when it is missing.
 
 ## Health and invariant signals
 
